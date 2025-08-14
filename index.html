@@ -4,173 +4,17 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>My Portfolio</title>
-<style>
-    @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;600&display=swap');
-
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-
-    body {
-        font-family: 'Poppins', sans-serif;
-        background: linear-gradient(135deg, #ffd1dc, #ffe4e9);
-        color: #444;
-        overflow-x: hidden;
-    }
-
-    header {
-        background: rgba(255, 255, 255, 0.7);
-        backdrop-filter: blur(10px);
-        padding: 20px 50px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        position: sticky;
-        top: 0;
-        z-index: 1000;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-    }
-
-    header h1 {
-        font-family: 'Pacifico', cursive;
-        color: #ff5c8a;
-        font-size: 28px;
-    }
-
-    nav a {
-        margin-left: 20px;
-        text-decoration: none;
-        color: #ff5c8a;
-        font-weight: 600;
-        position: relative;
-    }
-
-    nav a::after {
-        content: '';
-        position: absolute;
-        bottom: -4px;
-        left: 0;
-        width: 0%;
-        height: 2px;
-        background: #ff5c8a;
-        transition: 0.3s;
-    }
-
-    nav a:hover::after {
-        width: 100%;
-    }
-
-    .hero {
-        min-height: 90vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        position: relative;
-        overflow: hidden;
-    }
-
-    .hero h2 {
-        font-size: 40px;
-        color: #ff5c8a;
-        animation: float 3s ease-in-out infinite;
-    }
-
-    .hero p {
-        font-size: 18px;
-        margin-top: 10px;
-        max-width: 600px;
-    }
-
-    @keyframes float {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-10px); }
-    }
-
-    .portfolio {
-        padding: 60px 20px;
-        background: rgba(255,255,255,0.6);
-        backdrop-filter: blur(5px);
-    }
-
-    .portfolio h3 {
-        text-align: center;
-        color: #ff5c8a;
-        font-size: 32px;
-        margin-bottom: 40px;
-    }
-
-    .portfolio-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 20px;
-    }
-
-    .card {
-        background: white;
-        border-radius: 15px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        overflow: hidden;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        cursor: pointer;
-    }
-
-    .card:hover {
-        transform: translateY(-10px) scale(1.03);
-        box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-    }
-
-    .card img {
-        width: 100%;
-        display: block;
-    }
-
-    .card h4 {
-        padding: 15px;
-        color: #ff5c8a;
-    }
-
-    .card p {
-        padding: 0 15px 20px;
-        font-size: 14px;
-        color: #666;
-    }
-
-    footer {
-        background: #ff5c8a;
-        color: white;
-        text-align: center;
-        padding: 20px;
-        margin-top: 40px;
-    }
-
-    /* Sparkle animation */
-    .sparkle {
-        position: absolute;
-        width: 5px;
-        height: 5px;
-        background: white;
-        border-radius: 50%;
-        animation: sparkleMove 5s linear infinite;
-    }
-
-    @keyframes sparkleMove {
-        from { transform: translateY(0) translateX(0) scale(1); opacity: 1; }
-        to { transform: translateY(-500px) translateX(100px) scale(0); opacity: 0; }
-    }
-</style>
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
 
 <header>
     <h1>Δ</h1>
     <nav>
-        <a href="#home">Home</a>
-        <a href="#portfolio">Portfolio</a>
-        <a href="#contact">Contact</a>
+        <a href="index.html">Home</a>
+        <a href="projects.html">Portfolio</a>
+        <a href="contact.html">Contact</a>
     </nav>
 </header>
 
@@ -182,17 +26,17 @@
 <section class="portfolio" id="portfolio">
     <h3>My Works</h3>
     <div class="portfolio-grid">
-        <div class="card">
+        <div class="card" onclick="location.href='projects.html'">
             <img src="https://placekitten.com/400/250" alt="Website Project">
             <h4>Website Project</h4>
             <p>A beautiful and responsive website project.</p>
         </div>
-        <div class="card">
+        <div class="card" onclick="location.href='projects.html'">
             <img src="https://placebear.com/400/250" alt="Book Project">
             <h4>Book Project</h4>
             <p>A heartwarming story that will touch your soul.</p>
         </div>
-        <div class="card">
+        <div class="card" onclick="location.href='projects.html'">
             <img src="https://placekitten.com/401/250" alt="Other Project">
             <h4>Other Project</h4>
             <p>Creative designs and ideas brought to life.</p>
@@ -200,42 +44,11 @@
     </div>
 </section>
 
-<footer id="contact">
-    <p>📩 Contact me: <a style="color:white;" href="mailto:delta@example.com">delta@example.com</a></p>
+<footer>
+    <p>📩 Contact me: <a style="color:white;" href="mailto:dxatelier.io@gmail.com">dxatelier.io@gmail.com</a></p>
     <p>&copy; 2025 Delta Ivy</p>
 </footer>
 
-<script>
-    // Sparkles
-    function createSparkle() {
-        const sparkle = document.createElement('div');
-        sparkle.classList.add('sparkle');
-        sparkle.style.left = Math.random() * window.innerWidth + 'px';
-        sparkle.style.top = window.innerHeight + 'px';
-        document.body.appendChild(sparkle);
-
-        setTimeout(() => sparkle.remove(), 5000);
-    }
-    setInterval(createSparkle, 200);
-
-    // Scroll reveal animation
-    const revealElements = document.querySelectorAll('.card, .hero h2, .hero p');
-
-    window.addEventListener('scroll', () => {
-        revealElements.forEach(el => {
-            const rect = el.getBoundingClientRect();
-            if (rect.top < window.innerHeight - 100) {
-                el.style.opacity = 1;
-                el.style.transform = 'translateY(0)';
-                el.style.transition = '0.6s ease';
-            }
-        });
-    });
-
-    revealElements.forEach(el => {
-        el.style.opacity = 0;
-        el.style.transform = 'translateY(50px)';
-    });
-</script>
+<script src="script.js"></script>
 </body>
 </html>
