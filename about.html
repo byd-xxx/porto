@@ -1,57 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Me</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>About Me - My Portfolio</title>
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+    .skills-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 20px;
+        margin-top: 20px;
+    }
+    .skill-card {
+        background: rgba(255, 255, 255, 0.9);
+        padding: 20px;
+        border-radius: 12px;
+        text-align: center;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .skill-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    }
+    .skill-icon {
+        font-size: 40px;
+        margin-bottom: 10px;
+    }
+</style>
 </head>
 <body>
 
 <header>
+    <h1>Δ</h1>
     <nav>
-        <h1 class="logo">My Cute Portfolio</h1>
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html" class="active">About</a></li>
-            <li><a href="projects.html">Projects</a></li>
-            <li><a href="contact.html">Contact</a></li>
-        </ul>
+        <a href="index.html">Home</a>
+        <a href="about.html" style="text-decoration: underline;">About</a>
+        <a href="portfolio.html">Portfolio</a>
+        <a href="contact.html">Contact</a>
     </nav>
 </header>
 
-<main>
-    <section class="about-section">
-        <h2>About Me</h2>
-        <p>Hi! I’m Delta Ivy Alison, a passionate web designer, storyteller, and creator who loves bringing ideas to life through design and narrative. I’m always curious, always learning, and always ready for a new challenge.</p>
-    </section>
+<section class="hero">
+    <h2>About Me</h2>
+    <p>Hello! I’m Miss D — a creative soul who loves designing websites, crafting stories, building games, and bringing ideas to life.  
+    My passion lies in blending aesthetics with functionality, making every project both beautiful and meaningful. 💖</p>
+</section>
 
-    <!-- Skills & Interests -->
-    <section class="portfolio" style="background: none;">
-        <h3>Skills & Interests</h3>
-        <div class="portfolio-grid">
-            <div class="card">
-                <div class="icon">💻</div>
-                <h4>Web Design</h4>
-                <p>Designing responsive, user-friendly, and visually stunning websites that blend style with functionality.</p>
-            </div>
-            <div class="card">
-                <div class="icon">✍️</div>
-                <h4>Story Writing</h4>
-                <p>Crafting immersive and heartfelt narratives that resonate deeply with readers across genres.</p>
-            </div>
-            <div class="card">
-                <div class="icon">🎨</div>
-                <h4>Creative Projects</h4>
-                <p>Exploring unique ideas and transforming them into tangible, memorable experiences.</p>
-            </div>
+<section class="portfolio" style="background: none;">
+    <h3>Skills & Interests</h3>
+    <div class="skills-grid">
+        <div class="skill-card">
+            <div class="skill-icon">💻</div>
+            <h4>Web Design</h4>
+            <p>Creating beautiful, responsive, and user-friendly websites.</p>
         </div>
-    </section>
-</main>
+        <div class="skill-card">
+            <div class="skill-icon">✍️</div>
+            <h4>Story Writing</h4>
+            <p>Writing heartfelt and immersive stories that connect with readers.</p>
+        </div>
+        <div class="skill-card">
+            <div class="skill-icon">🎨</div>
+            <h4>Creative Projects</h4>
+            <p>Exploring unique concepts and turning them into reality.</p>
+        </div>
+        <div class="skill-card">
+            <div class="skill-icon">🎮</div>
+            <h4>Game Development</h4>
+            <p>Designing and developing engaging, interactive games.</p>
+        </div>
+    </div>
+</section>
 
 <footer>
-    <p>&copy; 2025 Miss D. All Rights Reserved.</p>
+    <p>📩 Contact me: <a style="color:white;" href="mailto:dxatelier.io@gmail.com">dxatelier.io@gmail.com</a></p>
+    <p>&copy; 2025 Miss D</p>
 </footer>
 
+<script src="script.js"></script>
 </body>
 </html>
