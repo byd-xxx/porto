@@ -3,92 +3,304 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Website Project 1 - Miss D</title>
-<link rel="stylesheet" href="style.css">
+<title>Website Project 1 — Miss D</title>
+<link rel="stylesheet" href="style.css" />
 <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
+/* ========== Scoped styles for this page only ========== */
+:root {
+  --md-bg: #0e0f13;
+  --md-bg-2: #12141b;
+  --md-card: #171925;
+  --md-text: #e9ebf3;
+  --md-muted: #b7bdd1;
+  --md-accent: #8a7cff;  /* elegant violet */
+  --md-accent-2: #ff7fbf; /* soft pink accent */
+  --md-ring: rgba(138,124,255,.25);
+}
+
 .project-hero {
-    text-align: center;
-    padding: 60px 20px;
-    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
-    color: white;
+  color: var(--md-text);
+  text-align: center;
+  padding: 72px 20px 56px;
+  background:
+    radial-gradient(1200px 600px at 50% -10%, rgba(138,124,255,.15), transparent 60%),
+    radial-gradient(1000px 500px at 90% 10%, rgba(255,127,191,.15), transparent 60%),
+    linear-gradient(180deg, #0c0d10, #0e0f13);
+  border-bottom: 1px solid rgba(255,255,255,.06);
 }
 .project-hero .icon {
-    font-size: 80px;
-    animation: bounce 2s infinite;
+  font-size: 84px;
+  filter: drop-shadow(0 8px 24px rgba(0,0,0,.35));
+  animation: phover 3s ease-in-out infinite;
 }
-@keyframes bounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-8px); }
+@keyframes phover { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+.project-hero h2 { margin: 14px 0 8px; font-size: 40px; letter-spacing:.3px; }
+.project-hero p  { max-width: 760px; margin: 0 auto; color: var(--md-muted); }
+
+.project-wrap {
+  background: var(--md-bg);
+  color: var(--md-text);
+  padding: 40px 16px 72px;
 }
 .project-content {
-    max-width: 800px;
-    margin: 40px auto;
-    padding: 0 20px;
+  max-width: 1060px;
+  margin: 0 auto;
 }
-.project-content h3 {
-    margin-bottom: 10px;
+.section {
+  margin-top: 40px;
+  background: var(--md-bg-2);
+  border: 1px solid rgba(255,255,255,.06);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.25);
 }
-.project-content p {
-    line-height: 1.6;
+.section h3 {
+  font-size: 22px;
+  margin-bottom: 12px;
 }
+.section p, .section li {
+  color: var(--md-muted);
+  line-height: 1.7;
+}
+.badges {
+  display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px;
+}
+.badge {
+  font-size: 13px; padding: 6px 10px; border-radius: 999px;
+  background: rgba(138,124,255,.12); color: var(--md-text);
+  border: 1px solid rgba(138,124,255,.35);
+}
+
+/* ======= Visual Web Mockup (pure CSS) ======= */
+.mockup {
+  margin-top: 28px;
+  background: linear-gradient(180deg, #0f1118, #0e0f13 30%, #0e0f13);
+  border: 1px solid rgba(255,255,255,.06);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,.35);
+}
+
+/* browser chrome */
+.mockup .chrome {
+  display: flex; align-items: center; gap: 8px;
+  height: 38px; padding: 0 12px;
+  background: #0b0c10; border-bottom: 1px solid rgba(255,255,255,.06);
+}
+.dot { width: 10px; height: 10px; border-radius: 50%; }
+.dot.red   { background:#ff5f57 }
+.dot.yellow{ background:#febc2e }
+.dot.green { background:#28c840 }
+
+/* site */
+.mockup .site {
+  font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
+
+/* top nav */
+.site .nav {
+  display:flex; align-items:center; justify-content:space-between;
+  padding: 16px 22px;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  background: rgba(255,255,255,.02);
+}
+.brand {
+  font-weight: 700; letter-spacing:.3px;
+  background: linear-gradient(90deg, var(--md-accent), var(--md-accent-2));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.nav .menu { display:flex; gap:16px; }
+.nav .menu a {
+  text-decoration:none; color: var(--md-muted); font-size: 14px;
+  padding: 6px 10px; border-radius: 8px;
+}
+.nav .menu a:hover { color: var(--md-text); background: rgba(255,255,255,.05); }
+
+/* hero */
+.site .hero {
+  padding: 64px 22px 42px;
+  text-align:center;
+  background:
+    radial-gradient(500px 200px at 15% -10%, rgba(138,124,255,.20), transparent 60%),
+    radial-gradient(500px 200px at 85% -10%, rgba(255,127,191,.18), transparent 60%);
+}
+.site .hero h1 { font-size: 36px; margin-bottom: 10px; }
+.site .hero p  { color: var(--md-muted); max-width: 760px; margin: 0 auto 18px; }
+.btn-row { display:flex; justify-content:center; gap:12px; }
+.btn {
+  display:inline-block; font-size:14px; padding:10px 16px; border-radius:10px;
+  border:1px solid rgba(255,255,255,.1); text-decoration:none;
+  transition: transform .12s ease, box-shadow .2s ease, background .2s ease;
+}
+.btn.primary { background: linear-gradient(90deg, var(--md-accent), var(--md-accent-2)); color:#0f0f12; font-weight:700; border-color: transparent; }
+.btn.ghost   { color: var(--md-text); background: rgba(255,255,255,.04); }
+.btn:hover { transform: translateY(-1px); box-shadow: 0 10px 22px var(--md-ring); }
+
+/* features */
+.site .features {
+  padding: 28px 22px 40px; max-width: 1100px; margin: 0 auto;
+  display:grid; gap:16px; grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+}
+.card {
+  background: var(--md-card);
+  border: 1px solid rgba(255,255,255,.06);
+  border-radius: 14px; padding: 16px;
+  transition: transform .15s ease, box-shadow .2s ease, border-color .2s ease;
+}
+.card:hover { transform: translateY(-4px); border-color: rgba(138,124,255,.55); box-shadow: 0 18px 40px rgba(0,0,0,.35); }
+.card .k { font-size: 26px; margin-bottom: 6px; }
+.card h4 { margin-bottom: 6px; }
+.card p  { color: var(--md-muted); font-size: 14px; }
+
+/* CTA block */
+.site .cta {
+  text-align:center; padding: 46px 22px 56px; border-top: 1px solid rgba(255,255,255,.06);
+}
+.site .cta .note { color: var(--md-muted); margin-bottom: 14px; }
+
+/* back link */
 .back-link {
-    display: inline-block;
-    margin-top: 30px;
-    padding: 10px 20px;
-    background: #ff9a9e;
-    color: white;
-    border-radius: 6px;
-    text-decoration: none;
-    transition: background 0.3s;
+  display:inline-block; margin-top: 22px; padding: 10px 14px; border-radius: 10px;
+  text-decoration: none; color: var(--md-text);
+  background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12);
 }
-.back-link:hover {
-    background: #e9898f;
+.back-link:hover { background: rgba(255,255,255,.10); }
+
+/* responsive tweaks */
+@media (max-width: 520px){
+  .project-hero h2 { font-size: 32px; }
+  .site .hero h1   { font-size: 28px; }
 }
 </style>
 </head>
 <body>
 
+<!-- Your existing header stays consistent -->
 <header>
-    <h1>Δ</h1>
-    <nav>
-        <a href="index.html">Home</a>
-        <a href="about.html">About</a>
-        <a href="portfolio.html" style="text-decoration: underline;">Portfolio</a>
-        <a href="contact.html">Contact</a>
-    </nav>
+  <h1>Δ</h1>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="portfolio.html" style="text-decoration: underline;">Portfolio</a>
+    <a href="contact.html">Contact</a>
+  </nav>
 </header>
 
+<!-- Project Hero -->
 <section class="project-hero">
-    <div class="icon">💻</div>
-    <h2>Website Project 1</h2>
-    <p>Responsive and modern web design.</p>
+  <div class="icon">💻</div>
+  <h2>Website Project 1 — Modern Responsive Experience</h2>
+  <p>
+    A premium, mobile-first website concept blending elegant typography, generous spacing,
+    and soft gradients. Designed to be fast, accessible, and delightful across devices.
+  </p>
 </section>
 
-<section class="project-content">
-    <h3>Overview</h3>
-    <p>
-        Website Project 1 adalah sebuah desain website modern yang responsif di semua perangkat.  
-        Proyek ini mengutamakan pengalaman pengguna yang intuitif, tampilan estetis, dan performa yang optimal.
-    </p>
+<!-- Content + Visual Mockup -->
+<div class="project-wrap">
+  <div class="project-content">
+    <div class="section">
+      <h3>Overview</h3>
+      <p>
+        <strong>Website Project 1</strong> showcases a refined visual language built for clarity and emotion.
+        The layout embraces a dark, elegant palette with subtle depth, while micro-interactions guide attention
+        without distraction. Every component is handcrafted with semantic HTML and clean CSS to ensure
+        performance, accessibility, and ease of maintenance.
+      </p>
+      <div class="badges">
+        <span class="badge">Responsive</span>
+        <span class="badge">Accessible</span>
+        <span class="badge">Fast</span>
+        <span class="badge">Maintainable</span>
+      </div>
+    </div>
 
-    <h3>Features</h3>
-    <ul>
-        <li>💡 Desain responsif untuk desktop, tablet, dan mobile</li>
-        <li>⚡ Loading cepat dengan optimisasi kode</li>
-        <li>🎨 Palet warna yang elegan dan konsisten</li>
-        <li>🛠 Struktur kode yang rapi dan mudah dikelola</li>
-    </ul>
+    <div class="section">
+      <h3>Key Features</h3>
+      <ul>
+        <li>Thoughtful hierarchy with strong headings and comfortable line-lengths.</li>
+        <li>Micro-interactions (hover/press) that feel crisp and modern.</li>
+        <li>Scalable component system (cards, buttons, navigation, sections).</li>
+        <li>No external images—pure CSS/HTML for a lightweight footprint.</li>
+      </ul>
+    </div>
 
-    <h3>Tech Stack</h3>
-    <p>HTML5, CSS3, JavaScript (Vanilla), dan animasi CSS murni.</p>
+    <!-- Visual Web Mockup -->
+    <div class="section">
+      <h3>Design Preview (Live Mockup)</h3>
 
-    <a href="portfolio.html" class="back-link">← Back to Portfolio</a>
-</section>
+      <div class="mockup" aria-label="Browser mockup preview">
+        <div class="chrome">
+          <span class="dot red"></span>
+          <span class="dot yellow"></span>
+          <span class="dot green"></span>
+        </div>
+
+        <div class="site">
+          <!-- NAV -->
+          <div class="nav">
+            <div class="brand">Miss&nbsp;D Studio</div>
+            <div class="menu">
+              <a href="#">Work</a>
+              <a href="#">Services</a>
+              <a href="#">About</a>
+              <a href="#">Contact</a>
+            </div>
+          </div>
+
+          <!-- HERO -->
+          <div class="hero">
+            <h1>Design that feels effortless.</h1>
+            <p>
+              I craft clean, responsive interfaces that highlight your brand and convert visitors into fans.
+            </p>
+            <div class="btn-row">
+              <a class="btn primary" href="#">Start a Project</a>
+              <a class="btn ghost" href="#">See Case Studies</a>
+            </div>
+          </div>
+
+          <!-- FEATURES -->
+          <div class="features">
+            <a class="card" href="#">
+              <div class="k">⚡</div>
+              <h4>Performance</h4>
+              <p>Lean CSS, semantic HTML, and careful animations for speed.</p>
+            </a>
+            <a class="card" href="#">
+              <div class="k">📱</div>
+              <h4>Responsive</h4>
+              <p>Pixel-perfect layouts from mobile to ultra-wide screens.</p>
+            </a>
+            <a class="card" href="#">
+              <div class="k">🧭</div>
+              <h4>Accessible</h4>
+              <p>Color contrast, focus states, and keyboard-friendly nav.</p>
+            </a>
+            <a class="card" href="#">
+              <div class="k">🎨</div>
+              <h4>Brand-Ready</h4>
+              <p>Elegant palettes and typography that elevate your story.</p>
+            </a>
+          </div>
+
+          <!-- CTA -->
+          <div class="cta">
+            <p class="note">Ready to level up your website?</p>
+            <a class="btn primary" href="#">Book a Discovery Call</a>
+          </div>
+        </div>
+      </div>
+
+      <a class="back-link" href="portfolio.html">← Back to Portfolio</a>
+    </div>
+  </div>
+</div>
 
 <footer>
-    <p>📩 Contact me: <a style="color:white;" href="mailto:dxatelier.io@gmail.com">dxatelier.io@gmail.com</a></p>
-    <p>&copy; 2025 Miss D</p>
+  <p>📩 Contact me: <a style="color:white;" href="mailto:dxatelier.io@gmail.com">dxatelier.io@gmail.com</a></p>
+  <p>&copy; 2025 Miss D</p>
 </footer>
 
 <script src="script.js"></script>
