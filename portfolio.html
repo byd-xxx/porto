@@ -1,101 +1,169 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Portfolio - My Works</title>
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+.card-icon {
+    font-size: 50px;
+    text-align: center;
+    padding-top: 30px;
+    animation: bounce 2s infinite;
+}
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+.card.no-img {
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative; /* untuk anchor absolute */
+}
+.card-bg-website { background: linear-gradient(135deg, #ff9a9e, #fad0c4); }
+.card-bg-book { background: linear-gradient(135deg, #a18cd1, #fbc2eb); }
+.card-bg-game { background: linear-gradient(135deg, #f6d365, #fda085); }
+.card-bg-other { background: linear-gradient(135deg, #84fab0, #8fd3f4); }
+.card h4, .card p {
+    color: white;
+    text-align: center;
+}
+.card-link {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    text-indent: -9999px; /* sembunyikan teks */
+    background: transparent;
+}
+</style>
 </head>
 <body>
-    <header>
-        <h1>My Portfolio</h1>
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="portfolio.html" class="active">Portfolio</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
 
-    <main>
-        <!-- Website Projects -->
-        <section>
-            <h2>Website Projects</h2>
-            <div class="projects-grid">
-                <a href="website1.html" class="card website">
-                    <div class="icon">💻</div>
-                    <h3>Responsive Web</h3>
-                    <p>A fully responsive modern website.</p>
-                </a>
+<header>
+    <h1>Δ</h1>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="portfolio.html" style="text-decoration: underline;">Portfolio</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+</header>
 
-                <a href="website2.html" class="card website">
-                    <div class="icon">🌐</div>
-                    <h3>Portfolio Site</h3>
-                    <p>Clean and minimalist portfolio design.</p>
-                </a>
-            </div>
-        </section>
+<section class="hero">
+    <h2>My Portfolio</h2>
+    <p>Here’s a collection of my works — from websites to books, games, and creative projects.</p>
+</section>
 
-        <!-- Book Projects -->
-        <section>
-            <h2>Book Projects</h2>
-            <div class="projects-grid">
-                <a href="book1.html" class="card book">
-                    <div class="icon">📖</div>
-                    <h3>Novel 1</h3>
-                    <p>Romantic drama novel project.</p>
-                </a>
+<!-- Website Projects -->
+<section class="portfolio">
+    <h3>Website Projects</h3>
+    <div class="portfolio-grid">
+        <div class="card no-img card-bg-website">
+            <div class="card-icon">💻</div>
+            <h4>Website Project 1</h4>
+            <p>Responsive and modern web design.</p>
+            <a href="website-project1.html" class="card-link">Website Project 1</a>
+        </div>
+        <div class="card no-img card-bg-website">
+            <div class="card-icon">🌐</div>
+            <h4>Website Project 2</h4>
+            <p>E-commerce site with full features.</p>
+            <a href="website-project2.html" class="card-link">Website Project 2</a>
+        </div>
+        <div class="card no-img card-bg-website">
+            <div class="card-icon">📱</div>
+            <h4>Website Project 3</h4>
+            <p>Creative portfolio for a client.</p>
+            <a href="website-project3.html" class="card-link">Website Project 3</a>
+        </div>
+    </div>
+</section>
 
-                <a href="book2.html" class="card book">
-                    <div class="icon">📚</div>
-                    <h3>Novel 2</h3>
-                    <p>Thriller and mystery novel project.</p>
-                </a>
-            </div>
-        </section>
+<!-- Book Projects -->
+<section class="portfolio">
+    <h3>Book Projects</h3>
+    <div class="portfolio-grid">
+        <div class="card no-img card-bg-book">
+            <div class="card-icon">📖</div>
+            <h4>Book Project 1</h4>
+            <p>A heartwarming novel.</p>
+            <a href="book-project1.html" class="card-link">Book Project 1</a>
+        </div>
+        <div class="card no-img card-bg-book">
+            <div class="card-icon">✍️</div>
+            <h4>Book Project 2</h4>
+            <p>A thriller that keeps you hooked.</p>
+            <a href="book-project2.html" class="card-link">Book Project 2</a>
+        </div>
+        <div class="card no-img card-bg-book">
+            <div class="card-icon">📚</div>
+            <h4>Book Project 3</h4>
+            <p>Romance with deep emotions.</p>
+            <a href="book-project3.html" class="card-link">Book Project 3</a>
+        </div>
+    </div>
+</section>
 
-        <!-- Game Projects -->
-        <section>
-            <h2>Game Projects</h2>
-            <div class="projects-grid">
-                <a href="game1.html" class="card game">
-                    <div class="icon">🎮</div>
-                    <h3>Pixel Adventure</h3>
-                    <p>2D platformer game coded in JavaScript.</p>
-                </a>
+<!-- Game Projects -->
+<section class="portfolio">
+    <h3>Game Projects</h3>
+    <div class="portfolio-grid">
+        <div class="card no-img card-bg-game">
+            <div class="card-icon">🎮</div>
+            <h4>Game Project 1</h4>
+            <p>2D adventure game.</p>
+            <a href="game-project1.html" class="card-link">Game Project 1</a>
+        </div>
+        <div class="card no-img card-bg-game">
+            <div class="card-icon">🕹️</div>
+            <h4>Game Project 2</h4>
+            <p>Puzzle game with unique mechanics.</p>
+            <a href="game-project2.html" class="card-link">Game Project 2</a>
+        </div>
+        <div class="card no-img card-bg-game">
+            <div class="card-icon">⚔️</div>
+            <h4>Game Project 3</h4>
+            <p>Multiplayer battle arena game.</p>
+            <a href="game-project3.html" class="card-link">Game Project 3</a>
+        </div>
+    </div>
+</section>
 
-                <a href="game2.html" class="card game">
-                    <div class="icon">🕹️</div>
-                    <h3>Logic Puzzle</h3>
-                    <p>Brain training puzzle game.</p>
-                </a>
-            </div>
-        </section>
+<!-- Other Projects -->
+<section class="portfolio">
+    <h3>Other Projects</h3>
+    <div class="portfolio-grid">
+        <div class="card no-img card-bg-other">
+            <div class="card-icon">🎨</div>
+            <h4>Other Project 1</h4>
+            <p>Creative art and design.</p>
+            <a href="other-project1.html" class="card-link">Other Project 1</a>
+        </div>
+        <div class="card no-img card-bg-other">
+            <div class="card-icon">📷</div>
+            <h4>Other Project 2</h4>
+            <p>Photography collection.</p>
+            <a href="other-project2.html" class="card-link">Other Project 2</a>
+        </div>
+        <div class="card no-img card-bg-other">
+            <div class="card-icon">💡</div>
+            <h4>Other Project 3</h4>
+            <p>Branding and marketing concept.</p>
+            <a href="other-project3.html" class="card-link">Other Project 3</a>
+        </div>
+    </div>
+</section>
 
-        <!-- Other Projects -->
-        <section>
-            <h2>Other Projects</h2>
-            <div class="projects-grid">
-                <a href="other1.html" class="card other">
-                    <div class="icon">🎨</div>
-                    <h3>Digital Artwork</h3>
-                    <p>Custom illustrations and designs.</p>
-                </a>
+<footer>
+    <p>📩 Contact me: <a style="color:white;" href="mailto:dxatelier.io@gmail.com">dxatelier.io@gmail.com</a></p>
+    <p>&copy; 2025 Delta Ivy</p>
+</footer>
 
-                <a href="other2.html" class="card other">
-                    <div class="icon">🎵</div>
-                    <h3>Music Composition</h3>
-                    <p>Original soundtrack production.</p>
-                </a>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <p>&copy; 2025 My Portfolio</p>
-    </footer>
-
-    <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
