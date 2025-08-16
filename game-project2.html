@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Puzzle Project — Portal Push (Enhanced) — Miss D</title>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#07121a; --panel:#0f1720; --muted:#b7c0d8;
+    --accent:#7f7cff; --accent2:#ff7fbf; --goal:#ffd166; --box:#6b4f2f;
+    --portal:#9b5ce0; --switch:#f59e0b; --wall:#2b2f33;
+  }
+  html,body{height:100%; margin:0; background:linear-gradient(180deg,#061018,#07121d); color:#e8eef8; font-family:Poppins,system-ui,Arial;}
+  header{display:flex; justify-content:space-between; align-items:center; padding:14px 20px; border-bottom:1px solid rgba(255,255,255,0.03);}
+  header h1{font-family:Pacifico,cursive; margin:0; color:var(--accent2);}
+  header nav a{color:var(--accent); text-decoration:none; margin-left:14px; font-weight:600;}
+  .hero{padding:12px 20px; text-align:center;}
+  .hero h2{margin:8px 0; font-size:24px;}
+  .hero p{max-width:980px; margin:0 auto; color:var(--muted);}
+
+  .wrap{max-width:1120px; margin:14px auto; padding:0 18px;}
+  .section{background:var(--panel); padding:14px; border-radius:12px; border:1px solid rgba(255,255,255,0.04); box-shadow:0 10px 30px rgba(0,0,0,0.45); margin-bottom:12px;}
+  .section h3{margin:0 0 8px;}
+  .muted{color:var(--muted);}
+  .features{display:flex; gap:10px; flex-wrap:wrap; margin-top:8px;}
+  .tag{background:linear-gradient(90deg,var(--accent),var(--accent2)); color:#071018; padding:6px 10px; border-radius:999px; color:#071018; font-weight:700;}
+
+  /* game area layout */
+  .game-area{display:flex; gap:16px; align-items:flex-start; margin-top:12px;}
+  @media (max-width:980px){ .game-area{flex-direction:column; align-items:center;} }
+
+  .left {
+    display:flex; flex-direction:column; gap:10px; min-width:640px;
+  }
+  .canvas-wrap { background: linear-gradient(180deg,#071523,#061620); border-radius:10px; padding:12px; border:1px solid rgba(255,255,255,0.03); box-shadow:0 18px 40px rgba(0,0,0,0.6); }
+  canvas{display:block; background:linear-gradient(180deg,#071523,#061620); border-radius:6px; box-shadow:inset 0 6px 18px rgba(0,0,0,0.25);}
+
+  .controls-row{display:flex; gap:10px; align-items:center; justify-content:space-between; margin-top:8px;}
+  .controls-left{display:flex; gap:10px; align-items:center;}
+  .btn{background:linear-gradient(90deg,var(--accent),var(--accent2)); color:#071018; padding:8px 12px; border-radius:9px; text-decoration:none; font-weight:700; cursor:pointer; border:none;}
+  .btn.ghost{background:transparent; border:1px solid rgba(255,255,255,0.04); color:var(--muted);}
+  .small{padding:6px 10px; font-size:14px;}
+
+  aside {
+    min-width:360px; max-width:380px;
+  }
+  .panel { padding:12px; border-radius:10px; background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.03); }
+  .legend{display:flex; gap:8px; flex-wrap:wrap; margin-top:10px;}
+  .legend .item{display:flex; gap:8px; align-items:center; padding:8px 10px; border-radius:8px; color:var(--muted); font-size:14px; background:rgba(255,255,255,0.01); border:1px solid rgba(255,255,255,0.02);}
+  .dot{width:18px; height:18px; border-radius:4px; display:inline-block;}
+
+  .editor { margin-top:10px; display:grid; gap:8px; }
+  textarea { width:100%; min-height:120px; background:rgba(0,0,0,0.18); color:#fff; border:1px solid rgba(255,255,255,0.03); padding:8px; border-radius:8px; font-family:monospace; font-size:13px; }
+
+  .status { margin-top:10px; color:var(--muted); font-size:14px; padding:8px; background:rgba(255,255,255,0.01); border-radius:8px; border:1px solid rgba(255,255,255,0.02); }
+  .meta { display:flex; gap:8px; align-items:center; margin-top:8px; justify-content:space-between; color:var(--muted); }
+
+  footer{padding:18px; text-align:center; color:var(--muted); margin-top:18px;}
+
+/* small confetti */
+.confetti { position:absolute; pointer-events:none; left:0; top:0; width:100%; height:100%; overflow:visible; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Δ</h1>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="portfolio.html" style="text-decoration: underline;">Portfolio</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h2>Portal Push — Puzzle Project (Enhanced)</h2>
+  <p class="muted">A Sokoban-inspired puzzle expanded with paired portals and switches. This enhanced version adds undo, visual feedback, a simple level editor, best-move tracking, and nicer animations — still pure code, no external assets.</p>
+</section>
+
+<div class="wrap">
+  <div class="section">
+    <h3>Overview</h3>
+    <p class="muted">Portal Push is a grid puzzle where you move in four directions and push boxes onto goal tiles. The unique mechanics are <strong>paired portals</strong> (lettered tiles) that teleport players or boxes, and <strong>switch tiles</strong> that toggle walls—this enables creative solutions beyond classic Sokoban logic.</p>
+    <div class="features">
+      <div class="tag">Grid Puzzles</div>
+      <div class="muted">No external assets — pure code</div>
+    </div>
+  </div>
+
+  <div class="game-area">
+    <div class="left">
+      <div class="canvas-wrap">
+        <div class="controls-row">
+          <div class="controls-left">
+            <button class="btn small" id="prevLevel">◀ Prev</button>
+            <button class="btn small" id="restartLevel">Restart</button>
+            <button class="btn small" id="undoBtn" title="Undo (U)">Undo (U)</button>
+            <button class="btn small" id="nextLevel">Next ▶</button>
+            <div style="width:12px"></div>
+            <div class="meta">
+              <div class="muted">Moves: <strong id="moves">0</strong></div>
+              <div class="muted">Best: <strong id="bestMoves">—</strong></div>
+            </div>
+          </div>
+          <div>
+            <button class="btn ghost small" id="toggleEditor">Toggle Editor</button>
+          </div>
+        </div>
+
+        <div style="position:relative; margin-top:8px;">
+          <canvas id="puzzleCanvas" width="640" height="512" tabindex="0" aria-label="Puzzle game canvas"></canvas>
+          <canvas id="confettiCanvas" class="confetti" width="640" height="512" style="position:absolute; left:0; top:0; pointer-events:none;"></canvas>
+        </div>
+
+        <div class="status muted" id="status">Click canvas and use arrow keys to move. Push boxes (brown) onto goals (yellow).</div>
+      </div>
+
+      <div style="display:flex; gap:10px; margin-top:8px;">
+        <button class="btn" id="exportBtn">Export Level JSON</button>
+        <button class="btn ghost" id="importBtn">Import Level JSON</button>
+        <button class="btn ghost" id="resetPositions">Reset Positions</button>
+      </div>
+    </div>
+
+    <aside>
+      <div class="panel">
+        <h4 class="muted">Key Features</h4>
+        <ul class="muted">
+          <li>Push boxes onto goals to complete the level.</li>
+          <li>Paired portals (A, B, C...) teleport player/boxes.</li>
+          <li>Switch tiles toggle walls — use them to create or open paths.</li>
+          <li>Undo moves, best-move tracking (stored locally), and simple level editor.</li>
+        </ul>
+
+        <div style="margin-top:12px;">
+          <div class="muted">Legend</div>
+          <div class="legend">
+            <div class="item"><span class="dot" style="background:#2b6cb0"></span> Player</div>
+            <div class="item"><span class="dot" style="background:#6b4f2f"></span> Box</div>
+            <div class="item"><span class="dot" style="background:var(--goal)"></span> Goal</div>
+            <div class="item"><span class="dot" style="background:var(--wall)"></span> Wall</div>
+            <div class="item"><span class="dot" style="background:var(--switch)"></span> Switch</div>
+            <div class="item"><span class="dot" style="background:var(--portal)"></span> Portal (lettered)</div>
+          </div>
+        </div>
+
+        <div style="margin-top:12px;">
+          <div class="muted">Controls</div>
+          <ul class="muted">
+            <li>Arrow keys — move</li>
+            <li>U — Undo</li>
+            <li>R — restart</li>
+            <li>N — next level (if solved)</li>
+            <li>E — toggle editor</li>
+          </ul>
+        </div>
+
+        <div class="editor" id="editor" style="display:none; margin-top:12px;">
+          <div class="muted">Level Editor (click cell to cycle tile)</div>
+          <div style="display:flex; gap:6px; margin-top:6px;">
+            <button class="btn small" id="editModeBtn">Edit Mode: Off</button>
+            <button class="btn small ghost" id="loadDefault">Load Default</button>
+          </div>
+          <textarea id="levelJSON" placeholder='Level JSON will appear here when exporting'></textarea>
+          <div style="display:flex; gap:6px;">
+            <button class="btn" id="applyJSON">Apply JSON</button>
+            <button class="btn ghost" id="clearEditor">Clear</button>
+          </div>
+          <div class="muted" style="margin-top:6px">Tile cycle order: floor → wall → box → goal → portal(A) → portal(B) → switch → player → floor</div>
+        </div>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<footer>
+  <p>📩 Contact me: <a style="color:white;" href="mailto:dxatelier.io@gmail.com">dxatelier.io@gmail.com</a></p>
+  <p>&copy; 2025 Miss D</p>
+</footer>
+
+<script>
+/* =========================
+   Portal Push — Enhanced
+   Features added:
+   - Undo stack
+   - Portal blink animations
+   - Switch pulse animation & robust logic
+   - Best-move tracking (localStorage)
+   - Simple level editor with export/import
+   - Confetti effect on solve
+   No external assets. All in one file.
+   ========================= */
+
+/* ===== CONFIG & GRID ===== */
+const TILE = 64;           // tile pixel size
+const COLS = 10;           // width
+const ROWS = 8;            // height
+
+const canvas = document.getElementById('puzzleCanvas');
+const ctx = canvas.getContext('2d');
+const confettiCanvas = document.getElementById('confettiCanvas');
+const cctx = confettiCanvas.getContext('2d');
+
+canvas.width = TILE * COLS;
+canvas.height = TILE * ROWS;
+confettiCanvas.width = canvas.width;
+confettiCanvas.height = canvas.height;
+
+// DOM
+const movesEl = document.getElementById('moves');
+const bestEl = document.getElementById('bestMoves');
+const statusEl = document.getElementById('status');
+const restartBtn = document.getElementById('restartLevel');
+const nextBtn = document.getElementById('nextLevel');
+const prevBtn = document.getElementById('prevLevel');
+const undoBtn = document.getElementById('undoBtn');
+const toggleEditorBtn = document.getElementById('toggleEditor');
+const editorPanel = document.getElementById('editor');
+const editModeBtn = document.getElementById('editModeBtn');
+const levelJSON = document.getElementById('levelJSON');
+const exportBtn = document.getElementById('exportBtn');
+const importBtn = document.getElementById('importBtn');
+const applyJSONBtn = document.getElementById('applyJSON');
+const clearEditorBtn = document.getElementById('clearEditor');
+const loadDefaultBtn = document.getElementById('loadDefault');
+const resetPositionsBtn = document.getElementById('resetPositions');
+
+// keyboard
+let keyState = {};
+
+// tile codes:
+// ' ' floor
+// '#' wall
+// '.' goal
+// '$' box
+// '@' player start
+// uppercase letters 'A'..'Z' are portals (paired)
+// 's' is a switch (switch definitions map to walls) 
+
+/* ===== LEVEL DEFINITIONS (DEFAULTS) =====
+   Note: levels are small arrays of strings, length must be COLS. */
+const levelDefs = [
+  // Level 1: basic portals
+  {
+    name: 'Intro Portals',
+    map: [
+      "##########",
+      "#   A    #",
+      "#  $$$ . #",
+      "#   @    #",
+      "#   .    #",
+      "#   A    #",
+      "#        #",
+      "##########"
+    ],
+    switches: []
+  },
+
+  // Level 2: portals + switch that opens/closes two walls
+  {
+    name: 'Portal & Switch',
+    map: [
+      "##########",
+      "#   A  . #",
+      "#  $##   #",
+      "#  s @ A #",
+      "#  $##   #",
+      "#   .    #",
+      "#        #",
+      "##########"
+    ],
+    switches: [
+      { id: '1', switchPos: {x:3,y:3}, walls: [{x:4,y:2},{x:4,y:4}] }
+    ]
+  },
+
+  // Level 3: two portal pairs + a switch gate
+  {
+    name: 'Advanced Portals',
+    map: [
+      "##########",
+      "#  A  B  #",
+      "# $$  .  #",
+      "#  ## ## #",
+      "#@   s   #",
+      "#  . $$  #",
+      "#  B  A  #",
+      "##########"
+    ],
+    switches: [
+      { id: '1', switchPos: {x:5,y:4}, walls: [{x:4,y:3},{x:5,y:3}] }
+    ]
+  }
+];
+
+// runtime state
+let currentLevel = 0;
+let grid = [];      // grid[y][x] tile char
+let boxes = [];     // array {x,y}
+let portals = {};   // letter -> [{x,y},...]
+let goals = [];     // list of {x,y}
+let switches = [];  // runtime: {switchPos:{x,y}, walls:[{x,y,active}]}
+let player = {x:0,y:0};
+let moves = 0;
+let solved = false;
+let undoStack = []; // stores snapshots for undo: {player,boxes,moves}
+let editMode = false;
+let bestMovesKeyPrefix = 'portalpush_best_';
+
+// confetti particles
+let confettiParticles = [];
+
+/* ===== UTILITIES ===== */
+function inBounds(x,y){ return x>=0 && x<COLS && y>=0 && y<ROWS; }
+function deepCopy(obj){ return JSON.parse(JSON.stringify(obj)); }
+function rect(x,y,w,h){ ctx.fillRect(x,y,w,h); }
+
+/* ===== LOADING & POSTPROCESS ===== */
+function loadLevelDef(idx){
+  currentLevel = idx;
+  const def = levelDefs[idx];
+  // initialize grid with floor
+  grid = Array.from({length:ROWS}, () => Array.from({length:COLS}, ()=>' '));
+  boxes = []; portals = {}; goals = []; switches = [];
+  moves = 0; solved = false; undoStack = [];
+  // parse def.map
+  for (let y=0; y<ROWS; y++){
+    const rowStr = def.map[y] || ''.padEnd(COLS,' ');
+    for (let x=0; x<COLS; x++){
+      const ch = rowStr[x] || ' ';
+      grid[y][x] = ch;
+    }
+  }
+  // find player/boxes/goals/portals
+  for (let y=0; y<ROWS; y++){
+    for (let x=0; x<COLS; x++){
+      const ch = grid[y][x];
+      if (ch === '@'){ player.x = x; player.y = y; grid[y][x] = ' '; }
+      if (ch === '$'){ boxes.push({x,y}); grid[y][x] = ' '; }
+      if (ch === '.'){ goals.push({x,y}); /* keep '.' in grid for visuals */ }
+      if (ch >= 'A' && ch <= 'Z'){ portals[ch] = portals[ch] || []; portals[ch].push({x,y}); }
+    }
+  }
+  // setup runtime switches
+  switches = (def.switches || []).map(s => ({
+    switchPos: s.switchPos,
+    walls: s.walls.map(w => ({x:w.x,y:w.y,active:true}))
+  }));
+  // init best moves display
+  updateBestMovesUI();
+  draw();
+}
+
+function resetPositions(){
+  // re-load current level definition to reset boxes/player positions & switches
+  loadLevelDef(currentLevel);
+  statusEl.textContent = 'Positions reset to level default';
+}
+
+/* ===== DRAWING ===== */
+function draw(){
+  // background floor
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  for (let y=0;y<ROWS;y++){
+    for (let x=0;x<COLS;x++){
+      const px = x*TILE, py = y*TILE;
+      // floor
+      ctx.fillStyle = '#071523';
+      ctx.fillRect(px,py,TILE,TILE);
+      // subtle grid
+      ctx.strokeStyle = 'rgba(255,255,255,0.02)';
+      ctx.strokeRect(px+0.5, py+0.5, TILE-1, TILE-1);
+      const t = grid[y][x];
+      // base tiles
+      if (t === '#'){
+        ctx.fillStyle = 'var(--wall)';
+        ctx.fillRect(px+6,py+6,TILE-12,TILE-12);
+      } else if (t === '.'){
+        ctx.fillStyle = 'rgba(255,209,102,0.95)';
+        roundRect(px+TILE*0.2,py+TILE*0.2,TILE*0.6,TILE*0.6,8,true);
+      } else if (t === 's'){
+        // switch tile (visual)
+        ctx.fillStyle = 'rgba(245,158,11,0.95)';
+        roundRect(px+TILE*0.28,py+TILE*0.28,TILE*0.44,TILE*0.44,6,true);
+      } else if (t >= 'A' && t <= 'Z'){
+        // portal tile with pulsing
+        const phase = (Date.now()/600) % 1;
+        const pulse = 0.85 + 0.15 * Math.sin(phase * Math.PI*2);
+        ctx.save();
+        ctx.translate(px + TILE/2, py + TILE/2);
+        ctx.scale(pulse,pulse);
+        ctx.fillStyle = '#9b5ce0';
+        roundRect(-TILE*0.36, -TILE*0.36, TILE*0.72, TILE*0.72, 6, true);
+        ctx.restore();
+        ctx.fillStyle = '#fff';
+        ctx.font = 'bold 20px Poppins, Arial';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(t, px + TILE/2, py + TILE/2 - 2);
+      }
+    }
+  }
+
+  // draw switches' walls (if active)
+  switches.forEach(s=>{
+    s.walls.forEach(w=>{
+      const wx = w.x, wy = w.y;
+      const px = wx*TILE, py = wy*TILE;
+      if (w.active){
+        ctx.fillStyle = '#2b2f33';
+        ctx.fillRect(px+6,py+6,TILE-12,TILE-12);
+      } else {
+        // inactive: translucent block
+        ctx.fillStyle = 'rgba(255,255,255,0.03)';
+        ctx.fillRect(px+6,py+6,TILE-12,TILE-12);
+      }
+    });
+  });
+
+  // boxes
+  boxes.forEach(b=>{
+    const px = b.x*TILE, py = b.y*TILE;
+    ctx.fillStyle = '#6b4f2f';
+    roundRect(px+10, py+10, TILE-20, TILE-20, 6, true);
+    ctx.fillStyle = 'rgba(0,0,0,0.08)';
+    ctx.fillRect(px+14, py+14, TILE-28, TILE-28);
+  });
+
+  // player
+  const ppx = player.x*TILE, ppy = player.y*TILE;
+  ctx.fillStyle = '#2b6cb0';
+  roundRect(ppx+10, ppy+10, TILE-20, TILE-20, 6, true);
+  ctx.fillStyle = '#fff';
+  ctx.font = 'bold 18px Poppins, Arial';
+  ctx.textAlign = 'center'; ctx.textBaseline='middle';
+  ctx.fillText('☺', ppx + TILE/2, ppy + TILE/2 - 2);
+
+  // draw goals highlight (outline under box/player)
+  goals.forEach(g=>{
+    const gx = g.x*TILE, gy = g.y*TILE;
+    ctx.strokeStyle = 'rgba(255,209,102,0.9)';
+    ctx.lineWidth = 3;
+    roundRect(gx+9, gy+9, TILE-18, TILE-18, 6, false, true);
+    ctx.lineWidth = 1;
+  });
+
+  // draw checkpoint of editor selection etc (no continuous loop)
+}
+
+/* helper draw rounded rect */
+function roundRect(x,y,w,h,r,fill=false,stroke=false){
+  ctx.beginPath();
+  ctx.moveTo(x+r, y);
+  ctx.arcTo(x+w, y, x+w, y+h, r);
+  ctx.arcTo(x+w, y+h, x, y+h, r);
+  ctx.arcTo(x, y+h, x, y, r);
+  ctx.arcTo(x, y, x+w, y, r);
+  ctx.closePath();
+  if (fill) ctx.fill();
+  if (stroke) ctx.stroke();
+}
+
+/* ===== GAME LOGIC ===== */
+
+// check if tile at x,y is a wall (grid '#' or active switch wall)
+function isWallAt(x,y){
+  if (!inBounds(x,y)) return true;
+  if (grid[y][x] === '#') return true;
+  for (const s of switches){
+    for (const w of s.walls){
+      if (w.x === x && w.y === y && w.active) return true;
+    }
+  }
+  return false;
+}
+
+function boxAt(x,y){
+  return boxes.find(b => b.x === x && b.y === y);
+}
+
+function portalPair(letter,x,y){
+  const list = portals[letter] || [];
+  if (list.length < 2) return null;
+  for (const p of list){
+    if (!(p.x === x && p.y === y)) return {x:p.x, y:p.y};
+  }
+  return null;
+}
+
+/* push snapshot for undo */
+function pushUndo(){
+  // store deep copy of player & boxes & switches state & moves
+  undoStack.push({
+    player: deepCopy(player),
+    boxes: deepCopy(boxes),
+    switches: deepCopy(switches),
+    moves
+  });
+  // limit undo stack size for memory
+  if (undoStack.length > 200) undoStack.shift();
+}
+
+/* undo */
+function undo(){
+  if (undoStack.length === 0) return;
+  const snap = undoStack.pop();
+  player = deepCopy(snap.player);
+  boxes = deepCopy(snap.boxes);
+  switches = deepCopy(snap.switches);
+  moves = snap.moves;
+  movesEl.textContent = moves;
+  solved = false;
+  statusEl.textContent = 'Undo performed';
+  draw();
+}
+
+/* handle switch activation: switch becomes 'pressed' if player or any box on its switchPos
+   behavior: when pressed -> walls become inactive; when not pressed -> walls active */
+function updateSwitches(){
+  for (const s of switches){
+    const sp = s.switchPos;
+    let pressed = (player.x === sp.x && player.y === sp.y);
+    for (const b of boxes){ if (b.x === sp.x && b.y === sp.y) pressed = true; }
+    s.walls.forEach(w => w.active = !pressed);
+  }
+}
+
+/* attempt move dx,dy */
+function attemptMove(dx,dy){
+  if (solved) return;
+  const nx = player.x + dx, ny = player.y + dy;
+  if (!inBounds(nx,ny)) return;
+
+  // compute current tile and destination
+  // check walls
+  if (isWallAt(nx,ny)) return;
+
+  // is there a box at destination?
+  const b = boxAt(nx,ny);
+  pushUndo(); // push before move (so move can be undone)
+  if (b){
+    const bx2 = b.x + dx, by2 = b.y + dy;
+    if (!inBounds(bx2,by2)) { undoStack.pop(); return; }
+    if (isWallAt(bx2,by2) || boxAt(bx2,by2)) { undoStack.pop(); return; }
+    // pushing into portal?
+    const destTile = grid[by2][bx2];
+    if (destTile >= 'A' && destTile <= 'Z'){
+      const dest = portalPair(destTile, bx2, by2);
+      if (dest){
+        // teleport to paired portal cell if free
+        if (isWallAt(dest.x,dest.y) || boxAt(dest.x,dest.y) || (player.x === dest.x && player.y === dest.y)){
+          undoStack.pop();
+          return;
+        }
+        // move box to dest
+        b.x = dest.x; b.y = dest.y;
+      } else {
+        b.x = bx2; b.y = by2;
+      }
+    } else {
+      b.x = bx2; b.y = by2;
+    }
+    // move player into b's previous spot
+    player.x = nx; player.y = ny;
+    moves++; movesEl.textContent = moves;
+    updateSwitches();
+    draw();
+    checkSolvedAndHandle();
+    return;
+  } else {
+    // stepping into portal?
+    const tile = grid[ny][nx];
+    if (tile >= 'A' && tile <= 'Z'){
+      const dest = portalPair(tile, nx, ny);
+      if (dest){
+        if (isWallAt(dest.x,dest.y) || boxAt(dest.x,dest.y)) { undoStack.pop(); return; }
+        player.x = dest.x; player.y = dest.y;
+        moves++; movesEl.textContent = moves;
+        updateSwitches();
+        draw();
+        checkSolvedAndHandle();
+        return;
+      }
+    }
+    // simple move
+    player.x = nx; player.y = ny;
+    moves++; movesEl.textContent = moves;
+    updateSwitches();
+    draw();
+    checkSolvedAndHandle();
+    return;
+  }
+}
+
+/* check solved */
+function checkSolved(){
+  return goals.every(g => boxes.some(b => b.x === g.x && b.y === g.y));
+}
+
+function checkSolvedAndHandle(){
+  if (checkSolved()){
+    solved = true;
+    statusEl.textContent = 'Solved! Press Next (N) to continue.';
+    // store best moves
+    const key = bestMovesKeyPrefix + currentLevel;
+    const best = parseInt(localStorage.getItem(key) || '0',10);
+    if (best === 0 || moves < best){
+      localStorage.setItem(key, moves);
+      updateBestMovesUI();
+      statusEl.textContent = 'Solved! New best: ' + moves + ' moves.';
+    } else {
+      statusEl.textContent = 'Solved! Moves: ' + moves + ' — Best: ' + best;
+    }
+    // confetti
+    startConfetti();
+  }
+}
+
+/* update best moves UI */
+function updateBestMovesUI(){
+  const key = bestMovesKeyPrefix + currentLevel;
+  const best = localStorage.getItem(key);
+  bestEl.textContent = best ? best : '—';
+}
+
+/* ===== LEVEL NAV & RESTART ===== */
+function restartLevel(){
+  loadLevelDef(currentLevel);
+  statusEl.textContent = 'Level restarted';
+}
+function nextLevel(){
+  if (currentLevel < levelDefs.length - 1){
+    currentLevel++;
+    loadLevelDef(currentLevel);
+    statusEl.textContent = 'Next level loaded';
+  } else {
+    statusEl.textContent = 'No more levels included';
+  }
+}
+function prevLevel(){
+  if (currentLevel > 0){
+    currentLevel--;
+    loadLevelDef(currentLevel);
+    statusEl.textContent = 'Previous level loaded';
+  }
+}
+
+/* ===== UNDO BUTTON ===== */
+undoBtn.addEventListener('click', ()=> undo());
+
+/* ===== KEYBOARD BINDINGS ===== */
+document.addEventListener('keydown', (e)=>{
+  if (editMode) {
+    // in edit mode, prevent game moves
+    if (e.key === 'e' || e.key === 'E'){ toggleEditor(); }
+    return;
+  }
+  if (e.key === 'ArrowUp'){ attemptMove(0,-1); e.preventDefault(); }
+  if (e.key === 'ArrowDown'){ attemptMove(0,1); e.preventDefault(); }
+  if (e.key === 'ArrowLeft'){ attemptMove(-1,0); e.preventDefault(); }
+  if (e.key === 'ArrowRight'){ attemptMove(1,0); e.preventDefault(); }
+  if (e.key === 'r' || e.key === 'R'){ restartLevel(); e.preventDefault(); }
+  if (e.key === 'n' || e.key === 'N'){ nextLevel(); e.preventDefault(); }
+  if (e.key === 'p' || e.key === 'P'){ prevLevel(); e.preventDefault(); }
+  if (e.key === 'u' || e.key === 'U'){ undo(); e.preventDefault(); }
+  if (e.key === 'e' || e.key === 'E'){ toggleEditor(); e.preventDefault(); }
+});
+
+/* ===== MOUSE / EDITOR INTERACTIONS ===== */
+let isEditing = false;
+toggleEditorBtn.addEventListener('click', ()=> toggleEditor());
+editModeBtn.addEventListener('click', ()=> { editMode = !editMode; editModeBtn.textContent = 'Edit Mode: ' + (editMode ? 'On' : 'Off'); });
+loadDefaultBtn.addEventListener('click', ()=> { loadLevelDef(currentLevel); statusEl.textContent='Default loaded'; });
+
+canvas.addEventListener('click', (e)=>{
+  const rect = canvas.getBoundingClientRect();
+  const cx = e.clientX - rect.left;
+  const cy = e.clientY - rect.top;
+  const gx = Math.floor(cx / TILE);
+  const gy = Math.floor(cy / TILE);
+  if (editMode){
+    cycleTileAt(gx,gy);
+    draw();
+    return;
+  }
+  canvas.focus();
+});
+
+// editor apply/export
+exportBtn.addEventListener('click', ()=>{
+  levelJSON.value = JSON.stringify(levelDefs[currentLevel], null, 2);
+  statusEl.textContent = 'Level JSON exported to editor area';
+});
+applyJSONBtn.addEventListener('click', ()=>{
+  try {
+    const obj = JSON.parse(levelJSON.value);
+    // basic validation: must have map array
+    if (!obj.map || !Array.isArray(obj.map)) throw new Error('Invalid level JSON: missing map array');
+    // replace current level definition
+    levelDefs[currentLevel] = obj;
+    loadLevelDef(currentLevel);
+    statusEl.textContent = 'Applied JSON to current level';
+  } catch (err){
+    statusEl.textContent = 'Error applying JSON: ' + err.message;
+  }
+});
+importBtn.addEventListener('click', ()=>{
+  try {
+    const obj = JSON.parse(levelJSON.value);
+    if (!obj.map) throw new Error('Invalid JSON');
+    levelDefs.splice(currentLevel+1, 0, obj); // insert as next level
+    statusEl.textContent = 'Imported level added as next level';
+  } catch(err){
+    statusEl.textContent = 'Import failed: ' + err.message;
+  }
+});
+clearEditorBtn.addEventListener('click', ()=> { levelJSON.value = ''; statusEl.textContent = 'Editor cleared'; });
+
+resetPositionsBtn.addEventListener('click', ()=> resetPositions());
+
+/* cycle tile in editor: order floor -> wall -> box -> goal -> portal A -> portal B -> switch -> player -> floor */
+function cycleTileAt(x,y){
+  if (!inBounds(x,y)) return;
+  const cur = grid[y][x];
+  const order = [' ', '#', '$', '.', 'A', 'B', 's', '@'];
+  // find next
+  let idx = order.indexOf(cur);
+  idx = idx === -1 ? 0 : (idx + 1) % order.length;
+  grid[y][x] = order[idx];
+  // fix player/boxes/goals after editing
+  // regenerate runtime after edit by applying minimal postprocess
+  rebuildRuntimeFromGrid();
+}
+
+/* rebuild runtime arrays based on current grid (for editor) */
+function rebuildRuntimeFromGrid(){
+  boxes = []; portals = {}; goals = [];
+  for (let y=0;y<ROWS;y++){
+    for (let x=0;x<COLS;x++){
+      const ch = grid[y][x];
+      if (ch === '@'){ player.x = x; player.y = y; grid[y][x] = ' '; }
+      if (ch === '$'){ boxes.push({x,y}); grid[y][x] = ' '; }
+      if (ch === '.'){ goals.push({x,y}); /* keep */ }
+      if (ch >= 'A' && ch <= 'Z'){ portals[ch] = portals[ch] || []; portals[ch].push({x,y}); }
+    }
+  }
+  // switches remain same as previous; editing switch walls won't update switch definitions automatically
+  moves = 0; movesEl.textContent = moves;
+  draw();
+}
+
+/* toggles the editor panel */
+function toggleEditor(){
+  if (editorPanel.style.display === 'none' || !editorPanel.style.display){
+    editorPanel.style.display = 'block';
+    toggleEditorBtn.textContent = 'Hide Editor';
+  } else {
+    editorPanel.style.display = 'none';
+    toggleEditorBtn.textContent = 'Toggle Editor';
+  }
+}
+
+/* ===== CONFETTI (simple) ===== */
+function startConfetti(){
+  confettiParticles = [];
+  for (let i=0;i<60;i++){
+    confettiParticles.push({
+      x: Math.random()*canvas.width,
+      y: -Math.random()*200,
+      vx: (Math.random()-0.5)*3,
+      vy: 2 + Math.random()*3,
+      r: 4 + Math.random()*6,
+      color: ['#ff7fbf','#7f7cff','#ffd166','#6ee7b7'][Math.floor(Math.random()*4)]
+    });
+  }
+  requestAnimationFrame(confettiLoop);
+}
+function confettiLoop(){
+  cctx.clearRect(0,0,confettiCanvas.width, confettiCanvas.height);
+  confettiParticles.forEach(p=>{
+    p.x += p.vx;
+    p.y += p.vy;
+    p.vy += 0.05;
+    cctx.fillStyle = p.color;
+    cctx.fillRect(p.x, p.y, p.r, p.r*0.6);
+  });
+  confettiParticles = confettiParticles.filter(p => p.y < confettiCanvas.height + 40);
+  if (confettiParticles.length > 0) requestAnimationFrame(confettiLoop);
+}
+
+/* ===== BOOTSTRAP & BINDINGS ===== */
+restartBtn.addEventListener('click', (e)=> { e.preventDefault(); restartLevel(); });
+nextBtn.addEventListener('click', (e)=> { e.preventDefault(); nextLevel(); });
+prevBtn.addEventListener('click', (e)=> { e.preventDefault(); prevLevel(); });
+
+// start with first level
+loadLevelDef(0);
+
+/* update best UI initially */
+updateBestMovesUI();
+
+/* ===== HELPER: ensure stable portal pairs built after level load ===== */
+function buildPortalsAndBoxes(){
+  portals = {}; goals = []; boxes = [];
+  for (let y=0;y<ROWS;y++){
+    for (let x=0;x<COLS;x++){
+      const ch = grid[y][x];
+      if (ch >= 'A' && ch <= 'Z'){
+        portals[ch] = portals[ch] || [];
+        portals[ch].push({x,y});
+      }
+      if (ch === '.'){ goals.push({x,y}); }
+      if (ch === '$'){ boxes.push({x,y}); grid[y][x] = ' '; }
+      if (ch === '@'){ player.x = x; player.y = y; grid[y][x] = ' '; }
+    }
+  }
+  // if levelDefs defines switches, ensure runtime switches reflect them
+  const def = levelDefs[currentLevel];
+  switches = (def.switches || []).map(s => ({ switchPos: s.switchPos, walls: s.walls.map(w => ({x:w.x,y:w.y,active:true})) }));
+}
+
+/* After load: post processing and drawing */
+(function postInit(){
+  // reconstruct runtime arrays properly
+  // ensure grid uses consistent characters and arrays are set
+  buildPortalsAndBoxes();
+  moves = 0;
+  undoStack = [];
+  movesEl.textContent = moves;
+  updateBestMovesUI();
+  draw();
+})();
+
+/* expose some debugging helpers (optional) */
+window.portalPush = {
+  loadLevelDef,
+  restartLevel,
+  nextLevel,
+  prevLevel,
+  exportCurrent: ()=> JSON.stringify(levelDefs[currentLevel],null,2)
+};
+</script>
+</body>
+</html>
