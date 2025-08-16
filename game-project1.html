@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2D Adventure Game - Miss D</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header>
+  <h1>Δ</h1>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="portfolio.html">Portfolio</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h2>2D Adventure Game</h2>
+  <p>A handcrafted adventure experience by <b>Miss D</b> — blending storytelling and interactivity in a minimalist retro world.  
+  Step into a journey where every decision matters and every pixel tells a story. 🎮</p>
+</section>
+
+<section class="portfolio">
+  <h3>Overview</h3>
+  <p>
+    This 2D Adventure Game is designed to capture the charm of retro pixel graphics while offering a narrative-driven experience.  
+    With intuitive controls, handcrafted levels, and branching storylines, players will immerse themselves in exploration, puzzles, and choices that shape the ending.
+  </p>
+</section>
+
+<section class="portfolio">
+  <h3>Key Features</h3>
+  <div class="portfolio-grid">
+    <div class="card no-img">
+      <h4>🌍 Immersive World</h4>
+      <p>Explore unique landscapes, from forests and caves to mystical ruins.</p>
+    </div>
+    <div class="card no-img">
+      <h4>🧩 Puzzle Challenges</h4>
+      <p>Solve logic-based and environmental puzzles to progress further.</p>
+    </div>
+    <div class="card no-img">
+      <h4>🎭 Branching Story</h4>
+      <p>Your decisions matter — multiple endings based on your choices.</p>
+    </div>
+    <div class="card no-img">
+      <h4>🎶 Original Soundtrack</h4>
+      <p>Atmospheric background music to enhance the adventure.</p>
+    </div>
+  </div>
+</section>
+
+<section class="portfolio">
+  <h3>Gameplay Preview</h3>
+  <div class="card no-img">
+    <canvas id="gameCanvas" width="600" height="400" style="background:#222; border-radius:12px;"></canvas>
+    <p style="margin-top:10px;">🕹️ Use arrow keys to move the character (demo).</p>
+  </div>
+</section>
+
+<footer>
+  <p>📩 Contact me: <a style="color:white;" href="mailto:dxatelier.io@gmail.com">dxatelier.io@gmail.com</a></p>
+  <p>&copy; 2025 Miss D</p>
+</footer>
+
+<script>
+  // Simple demo character movement on canvas
+  const canvas = document.getElementById("gameCanvas");
+  const ctx = canvas.getContext("2d");
+
+  let x = 280, y = 180;
+  const size = 20;
+
+  function draw() {
+    ctx.fillStyle = "#222";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    ctx.fillStyle = "#ff69b4";
+    ctx.fillRect(x, y, size, size);
+  }
+
+  function update(e) {
+    if (e.key === "ArrowUp") y -= 10;
+    if (e.key === "ArrowDown") y += 10;
+    if (e.key === "ArrowLeft") x -= 10;
+    if (e.key === "ArrowRight") x += 10;
+
+    if (x < 0) x = 0;
+    if (y < 0) y = 0;
+    if (x > canvas.width - size) x = canvas.width - size;
+    if (y > canvas.height - size) y = canvas.height - size;
+
+    draw();
+  }
+
+  draw();
+  window.addEventListener("keydown", update);
+</script>
+
+</body>
+</html>
